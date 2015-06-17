@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tesspathy by gree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Tesspathy</h1>
+      <h2 class="project-tagline">JS library for converting paths of 2d graphics into triangles for GL-like APIs</h2>
+      <a href="https://github.com/gree/tesspathy" class="btn">View on GitHub</a>
+      <a href="https://github.com/gree/tesspathy/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/gree/tesspathy/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="tesspathy" class="anchor" href="#tesspathy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tesspathy</h1>
+
+<p><a href="http://gree.github.io/tesspathy/demos/drawing_pad/">Live demo</a></p>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>Tesspathy is a Javascript utility library for converting vector representation (aka path) of 2d graphics into the form (basically triangles) capable of being fed to GL-like (e.g. WebGL) APIs.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Tessellate not only polygons, but also quadratic Bezier curves, into a resolution independent form.</li>
+<li>Tessellate not only filled regions, but also straight/curve strokes.</li>
+<li>Holes and separated regions supported, with no need of explicit declaration.</li>
+<li>Without any post-processing, all necessary basic data for rendering by WebGL is ready in output. </li>
+<li>No extra dependencies. Input and output are all plain Javascript Arrays.</li>
+<li>Reasonable degree of error tolerance.</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Install using npm</p>
+
+<pre><code>npm install tesspathy
+</code></pre>
+
+<p>Then require it into any module</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> Tesspathy <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>tesspathy<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> tLoactions <span class="pl-k">=</span> [<span class="pl-c">/* ... */</span>], tLabels <span class="pl-k">=</span> [<span class="pl-c">/* ... */</span>];
+<span class="pl-k">var</span> tResult <span class="pl-k">=</span> Tesspathy.triangulate(tLocations, tLabels);</pre></div>
+
+<p>To use Tesspathy from a browser, download the appropriate file(s) from the following:</p>
+
+<ul>
+<li>
+<a href="dist/tesspathy.js">dist/tesspathy.js</a>: uncompressed JS file</li>
+<li>
+<a href="dist/tesspathy.min.js">dist/tesspathy.min.js</a>: compressed JS file</li>
+<li>
+<a href="dist/tesspathy.min.js.map">dist/tesspathy.min.js.map</a>: source map file</li>
+</ul>
+
+<p>And then add it as a script tag to your page</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>tesspathy.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">  <span class="pl-k">var</span> tLoactions <span class="pl-k">=</span> [<span class="pl-c">/* ... */</span>], tLabels <span class="pl-k">=</span> [<span class="pl-c">/* ... */</span>];</span>
+<span class="pl-s1">  <span class="pl-k">var</span> tResult <span class="pl-k">=</span> Tesspathy.triangulate(tLocations, tLabels);</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p><a href="http://gree.github.io/tesspathy/demos/drawing_pad/">Live demo</a></p>
+
+<h3>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h3>
+
+<p>Input data of shape contours with one or multiple separated regions, zero or multiple holes, can be all passed in together, without explicit separation. The same for lines with one or multiple connected/disconnected strokes.</p>
+
+<h4>
+<a id="tesspathytriangulatelocations-labels" class="anchor" href="#tesspathytriangulatelocations-labels" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tesspathy.triangulate(locations, labels)</h4>
+
+<p>Tessellate one or multiple closed shapes (with zero or multiple holes possibly) defined by <code>locations</code> and <code>labels</code>.</p>
+
+<h4>
+<a id="tesspathytriangulatelinelocations-labels-linestyle" class="anchor" href="#tesspathytriangulatelinelocations-labels-linestyle" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tesspathy.triangulateLine(locations, labels, lineStyle)</h4>
+
+<p>Tessellate one or multiple strokes defined by <code>locations</code>, <code>labels</code>, and <code>lineStyle</code>.</p>
+
+<h4>
+<a id="tesspathysetfillcoordinatesfillcoordinates" class="anchor" href="#tesspathysetfillcoordinatesfillcoordinates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tesspathy.setFillCoordinates(fillCoordinates)</h4>
+
+<p>Set the values to be used when generating the <code>fillCoordinates</code> field of the output object of both <code>Tesspathy.triangulate</code> and <code>Tesspathy.triangulateLine</code>.
+The meaning and usage of this <code>fillCoordinates</code> is not defined in the scope of Tesspathy project. One possible usage is to pass it as another vertex attribute to shader program for certain rendering effects, such as resolution independent curve (<a href="http://gree.github.io/tesspathy/demos/drawing_pad/">live demo</a>).</p>
+
+<h4>
+<a id="tesspathygetfillcoordinates" class="anchor" href="#tesspathygetfillcoordinates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tesspathy.getFillCoordinates()</h4>
+
+<p>Get the current values used to generate the <code>fillCoordinates</code> field of the output object.</p>
+
+<h3>
+<a id="parameters" class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h3>
+
+<h4>
+<a id="locations" class="anchor" href="#locations" aria-hidden="true"><span class="octicon octicon-link"></span></a>locations</h4>
+
+<p>Array of point locations, of the following form:</p>
+
+<div class="highlight highlight-js"><pre>[ 
+  [x0, y0], [x1, y1], [x2, y2], ... , [xN, yN],    <span class="pl-c">// 1st shape or line</span>
+  [xN<span class="pl-k">+</span><span class="pl-c1">1</span>, yN<span class="pl-k">+</span><span class="pl-c1">1</span>], [xN<span class="pl-k">+</span><span class="pl-c1">2</span>, yN<span class="pl-k">+</span><span class="pl-c1">2</span>], ... , [xN<span class="pl-k">+</span>M, yN<span class="pl-k">+</span>M],  <span class="pl-c">// 2nd shape or line</span>
+  ...   <span class="pl-c">// more shapes or lines</span>
+]</pre></div>
+
+<ul>
+<li>For each single closed shape (not line), the last point location must be the same with the first location.</li>
+<li>The order of point locations (clockwise or counterclockwise) is not restricted, but within a single <code>locations</code> array, all the contours should be in the same order while all the holes should be in the reversed order.</li>
+</ul>
+
+<h4>
+<a id="labels" class="anchor" href="#labels" aria-hidden="true"><span class="octicon octicon-link"></span></a>labels</h4>
+
+<p>Array of point labels to indicating
+1. the start of a new shape or line,
+2. normal point or control point(of Bezier curve).</p>
+
+<p>For example:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// START = [Tesspathy.PATH_START], ANCHOR = [Tesspathy.PATH_ANCHOR], CONTROL = [Tesspathy.PATH_CONTROL];</span>
+
+[
+  <span class="pl-c1">START</span>, <span class="pl-c1">ANCHOR</span>, <span class="pl-c1">CONTROL</span>, ..., <span class="pl-c1">ANCHOR</span>,   <span class="pl-c">// 1st shape or line</span>
+  <span class="pl-c1">START</span>, <span class="pl-c1">CONTROL</span>, <span class="pl-c1">ANCHOR</span>, ..., <span class="pl-c1">ANCHOR</span>,   <span class="pl-c">// 2nd shape or line</span>
+  ...   <span class="pl-c">// more shapes or lines</span>
+]</pre></div>
+
+<ul>
+<li>For each single closed shape or line, the first label must be <code>START</code> and the last must be <code>ANCHOR</code>.</li>
+<li>The label of point with location <code>locations[i]</code> should be <code>labels[i][0]</code>.</li>
+</ul>
+
+<h4>
+<a id="linestyle" class="anchor" href="#linestyle" aria-hidden="true"><span class="octicon octicon-link"></span></a>lineStyle</h4>
+
+<p>Object defining the line style used to render strokes, of the following form:</p>
+
+<div class="highlight highlight-js"><pre>{
+  width<span class="pl-k">:</span> <span class="pl-c1">20</span>,
+  cap<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>round<span class="pl-pds">'</span></span>,
+  join<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>round<span class="pl-pds">'</span></span>
+};</pre></div>
+
+<ul>
+<li>The value of <code>width</code> will be regarded as using the same length unit of <code>locations</code>.</li>
+<li>By now, the only supported line join/cap is <code>'round'</code>.</li>
+</ul>
+
+<h4>
+<a id="fillcoordinates" class="anchor" href="#fillcoordinates" aria-hidden="true"><span class="octicon octicon-link"></span></a>fillCoordinates</h4>
+
+<p>Object defining the values to be used when generating the <code>fillCoordinates</code> field of the output. For example:</p>
+
+<div class="highlight highlight-js"><pre>{
+  straight<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">STRAIGHT_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">STRAIGHT_T</span>},
+  out_anchor0<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">OUT_ANCHOR0_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">OUT_ANCHOR0_T</span>},
+  out_control<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">OUT_CONTROL_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">OUT_CONTROL_T</span>},
+  out_anchor1<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">OUT_ANCHOR1_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">OUT_ANCHOR1_T</span>},
+  in_anchor0<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">IN_ANCHOR0_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">IN_ANCHOR0_T</span>},
+  in_control<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">IN_CONTROL_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">IN_CONTROL_T</span>},
+  in_anchor1<span class="pl-k">:</span> {s<span class="pl-k">:</span> <span class="pl-c1">IN_ANCHOR1_S</span>, t<span class="pl-k">:</span> <span class="pl-c1">IN_ANCHOR1_T</span>}
+}</pre></div>
+
+<h3>
+<a id="output" class="anchor" href="#output" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output</h3>
+
+<p>The output of both <code>Tesspathy.triangulate</code> and <code>Tesspathy.triangulateLine</code> will be an Object of the following form:</p>
+
+<div class="highlight highlight-js"><pre>{
+  triangleLocations<span class="pl-k">:</span> [x0, y0, x1, y1, ..., xK, yK]
+  fillCoordinates<span class="pl-k">:</span> [s0, t0, s1, t1, ..., sK, yK]
+  triangleIndices<span class="pl-k">:</span> [<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>, ..., K<span class="pl-k">-</span><span class="pl-c1">5</span>, K<span class="pl-k">-</span><span class="pl-c1">3</span>, K<span class="pl-k">-</span><span class="pl-c1">2</span>]
+}</pre></div>
+
+<p>This output can be used directly by WebGL. For example:</p>
+
+<div class="highlight highlight-js"><pre> ... 
+<span class="pl-k">var</span> tPosition <span class="pl-k">=</span> gl.getAttribLocation(...);
+gl.bufferData(gl.ARRAY_BUFFER, <span class="pl-k">new</span> <span class="pl-en">Float32Array</span>(result.triangleLocations), gl.STATIC_DRAW);
+gl.vertexAttribPointer(tPosition, <span class="pl-c1">2</span>, gl.FLOAT, <span class="pl-c1">false</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+
+<span class="pl-k">var</span> tCoord <span class="pl-k">=</span> gl.getAttribLocation(...);
+gl.bufferData(gl.ARRAY_BUFFER, <span class="pl-k">new</span> <span class="pl-en">Float32Array</span>(result.fillCoordinates), gl.STATIC_DRAW);
+gl.vertexAttribPointer(tCoord, <span class="pl-c1">2</span>, gl.FLOAT, <span class="pl-c1">false</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, <span class="pl-k">new</span> <span class="pl-en">Uint16Array</span>(result.triangleIndices), gl.STATIC_DRAW); 
+
+gl.drawElements(gl.TRIANGLES, result.triangleIndices.<span class="pl-c1">length</span>, gl.UNSIGNED_SHORT, <span class="pl-c1">0</span>);</pre></div>
+
+<p>Thus, if you set your GL status and matrix uniform(s) correctly, and write your shaders (especially fragment shader) well, you will see your shapes or lines defined in vector form being rendered by using WebGL. If there is any problem, please first have a look at the <a href="http://gree.github.io/tesspathy/demos/drawing_pad/">live demo</a> provided.</p>
+
+<h2>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h2>
+
+<ul>
+<li>Shapes with self-crossing contours will result in undefined behaviour.</li>
+<li>By now, the only supported curve type is quadratic Bezier curve.</li>
+</ul>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p>Guangyao Liu</p>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h2>
+
+<p>We use GitHub issues to track requests and public bugs. Please ensure your description is clear and has sufficient instructions to be able to reproduce the issue.</p>
+
+<h2>
+<a id="licence" class="anchor" href="#licence" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licence</h2>
+
+<p>Copyright © 2015 Guangyao Liu / GREE, Inc.</p>
+
+<p>Licensed under the MIT License.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/gree/tesspathy">Tesspathy</a> is maintained by <a href="https://github.com/gree">gree</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
