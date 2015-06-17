@@ -1,0 +1,35 @@
+{
+  "name": "tesspathy",
+  "version": "0.1.0",
+  "description": "A Javascript library to convert vector graphics paths into triangles which can be used directly by GL-like APIs.",
+  "author": {
+    "name": "Guangyao Liu",
+    "email": "brilliun@gmail.com"
+  },
+  "main": "dist/tesspathy.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "build-dev": "browserify src/Tesspathy.js -s Tesspathy > dist/tesspathy.js",
+    "build": "npm run build-dev && uglifyjs dist/tesspathy.js -o dist/tesspathy.min.js --source-map dist/tesspathy.min.js.map -p relative -c -m --preamble '/**\n * Tesspathy 0.1.0\n * Copyright (C) 2015 Guangyao Liu / GREE, Inc.\n * Tesspathy is licensed under the MIT license.\n */'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gree/tesspathy.git"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "mocha": "^2.2.5",
+    "uglify-js": "^2.4.23"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "triangulation",
+    "tessellation",
+    "webgl"
+  ],
+  "license": "MIT"
+}

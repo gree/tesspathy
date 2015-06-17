@@ -1,0 +1,65 @@
+<html>
+<head>
+  <script type="x-shader/x-vertex" id="shader-vs">
+    attribute vec2 aPosition;
+    attribute vec2 aFillCoord;
+    uniform mat4 uMatrix;
+
+    varying vec2 vFillCoord;
+
+    void main(void) {
+      vFillCoord = aFillCoord;
+      gl_Position = uMatrix * vec4(aPosition, 0.5, 1.0);
+    }
+  </script>
+  <script type="x-shader/x-fragment" id="shader-fs">
+    precision highp float;
+
+    varying vec2 vFillCoord;
+
+    void main(void) {
+      float convexFlag = sign(vFillCoord.x);
+      float sd = (vFillCoord.x * vFillCoord.x + abs(vFillCoord.x) - abs(vFillCoord.y)) * convexFlag;
+      
+      if (sd > 0.0) {
+        discard;
+      } 
+
+      gl_FragColor = vec4(0.0, 1.0, .0, 1.0);
+
+
+
+    }
+  </script>
+  <script type="text/javascript" charset="UTF-8" src="../../dist/tesspathy.min.js"></script>
+  <script type="text/javascript" charset="UTF-8" src="controller.js"></script>
+
+</head>
+<body>
+<div>
+1. Click one point within the left canvas<br/>
+2. Draw straight lines by clicking more points <br/>
+3. Draw curves by clicking with shift key down<br/>
+4. Hit Enter key to finish a polygon (only required for fill)<br/>
+5. Draw more shapes if you want, following step 1~4 repeatedly.
+(Clock wise or counter clock wise doesn't matter, but reverse direction inside a closed region will make a hole)
+</div>
+<p>
+<div>
+  <span><input type="radio" name="mode" id="fill-radio" value="fill" checked>Fill shapes</span>
+  <span><input type="radio" name="mode" id="stroke-radio" value="stroke">Stroke lines</span>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp; Line width:</span>
+  <span><input type="range" id="width-range" min="5" max="30"></span>
+</div>
+<div>
+</p>
+  <canvas style="border: solid 1px; " id="canvas" width="600" height="600"></canvas>
+  <canvas style="border: solid 1px; " id="canvas3D" width="600" height="600"></canvas>
+</div>
+<div>
+First ->  <button onclick="doTriangulate()">Triangulate</button>
+Then ->  <button onclick="renderByWebGL()">WebGL</button>
+Last -> Use [W][S][A][D] to move, and [I] or [K] to scale to see the <b>resolution independent</b> rendering result.
+</div>
+</body>
+</html>
