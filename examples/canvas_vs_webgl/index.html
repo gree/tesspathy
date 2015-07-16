@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script type="text/javascript" charset="UTF-8" src="../../dist/tesspathy.min.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="Canvas2DRenderer.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="WebGLRenderer.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="render_test.js"></script>
+
+    </head>
+    <body>
+    <div>
+        <canvas style="border: solid 1px; " id="canvas" width="600" height="600"></canvas>
+    </div>
+    <div>
+        <span>
+            <input type="radio" name="mode" id="2d-radio" value="2d">
+            Canvas 2D
+        </span>
+        <span>
+            <input type="radio" name="mode" id="3d-radio" value="3d">
+            WebGL
+        </span>
+        <button onclick="addObjectToStage(50)">Add Objects</button>
+        <span id="objCount" style="font-size: 300%; color: blue;">0</span>
+    </div>
+    </body>
+</html>
