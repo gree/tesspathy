@@ -1,7 +1,7 @@
 # Tesspathy
 
-<a href="http://gree.github.io/tesspathy/demos/drawing_pad/" target="_blank">![FrontCover](http://gree.github.io/tesspathy/assets/images/tesspathy.jpg)</a>
-<sup><sub>This work is a derivative of a <a rel="nofollow" href="https://www.flickr.com/photos/harrietalderson/10949309474">photo</a> by harrietalderson , used under <a rel="nofollow" href="https://creativecommons.org/licenses/by/2.0/">CC BY</a>.</sub></sup>
+<a href="http://gree.github.io/tesspathy/demos/drawing_pad/" target="_blank">![FrontCover](http://gree.github.io/tesspathy/assets/images/tesspathy_logo_medium.jpg)</a>
+
 
 ## Description
 
