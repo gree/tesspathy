@@ -1,6 +1,6 @@
 {
   "name": "tesspathy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Javascript library to convert vector graphics paths into triangles which can be used directly by GL-like APIs.",
   "author": {
     "name": "Guangyao Liu",
