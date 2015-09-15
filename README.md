@@ -1,5 +1,3 @@
-# Tesspathy
-
 <a href="http://gree.github.io/tesspathy/demos/drawing_pad/" target="_blank">![FrontCover](http://gree.github.io/tesspathy/assets/images/tesspathy_logo_medium.jpg)</a>
 
 
